@@ -1,0 +1,91 @@
+from tkinter import *
+
+root = Tk()
+root.title('Simple Calculator')
+
+e = Entry(root, width=35, borderwidth=5)
+e.grid(row=0, column=0, columnspan=4, padx=10, pady=10)
+
+def button_click(number):
+    current = e.get()
+    e.delete(0, END)
+    e.insert(0, current + str(number))
+
+def button_clear():
+    e.delete(0, END)
+
+def button_add():
+    first_number = e.get()
+    global f_num
+    global math
+    math = "addition"
+    f_num = float(first_number)
+    e.delete(0, END)
+
+def button_subtract():
+    first_number = e.get()
+    global f_num
+    global math
+    math = "subtraction"
+    f_num = float(first_number)
+    e.delete(0, END)
+
+def button_multiply():
+    first_number = e.get()
+    global f_num
+    global math
+    math = "multiplication"
+    f_num = float(first_number)
+    e.delete(0, END)
+
+def button_divide():
+    first_number = e.get()
+    global f_num
+    global math
+    math = "division"
+    f_num = float(first_number)
+    e.delete(0, END)
+
+def button_equal():
+    second_number = e.get()
+    e.delete(0, END)
+    try:
+        if math == "addition":
+            e.insert(0, f_num + float(second_number))
+        elif math == "subtraction":
+            e.insert(0, f_num - float(second_number))
+        elif math == "multiplication":
+            e.insert(0, f_num * float(second_number))
+        elif math == "division":
+            if float(second_number) == 0:
+                e.insert(0, "Error")
+            else:
+                e.insert(0, f_num / float(second_number))
+    except ValueError:
+        e.insert(0, "Error")
+
+# Create buttons for numbers and operations
+buttons = [
+    ("1", 1), ("2", 2), ("3", 3),
+    ("4", 4), ("5", 5), ("6", 6),
+    ("7", 7), ("8", 8), ("9", 9),
+    ("0", 0),
+    ("+", button_add), ("-", button_subtract),
+    ("*", button_multiply), ("/", button_divide),
+    ("=", button_equal), ("C", button_clear)
+]
+
+row_num = 1
+col_num = 0
+
+for (text, command) in buttons:
+    if isinstance(command, int):
+        Button(root, text=text, padx=40, pady=20, command=lambda num=command: button_click(num)).grid(row=row_num, column=col_num)
+    else:
+        Button(root, text=text, padx=40, pady=20, command=command).grid(row=row_num, column=col_num)
+    col_num += 1
+    if col_num > 3:
+        col_num = 0
+        row_num += 1
+
+root.mainloop()
