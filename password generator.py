@@ -37,7 +37,7 @@ root = tk.Tk()
 root.title("Password Generator")
 
 # Label and entry for password length
-length_label = tk.Label(root, text="Password Length:")
+length_label = tk.Label(root, text="Password Length:",width=40)
 length_label.pack()
 length_entry = tk.Entry(root)
 length_entry.pack()
